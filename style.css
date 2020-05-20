@@ -1,3 +1,71 @@
+html, body {
+    margin: 0; 
+    padding: 0;
+}
+
 body {
     background: darkslateblue;
+}
+
+.container {
+    width: 600px;
+    height: 800px;
+    background-color: gray;
+    margin: 100px auto;
+    padding-top: 30px;
+}
+
+.display {
+    width: 500px;
+    height: 80px;
+    margin: auto;
+    background-color: lightgray;
+}
+
+.buttons {
+    width: 500px;
+    height: 640px;
+    margin: 40px auto;
+    background-color: lightgray;
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px; 
+    /* justify-items: center; */
+    /* align-items: center; */
+    grid-template-areas: 
+        "a a a a"
+        "c c c b"
+        "c c c b"
+        "c c c b"
+        "c c c b";
+}
+
+.row {
+    grid-area: a;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}
+
+.column {
+    grid-area: b;
+    /* SEE ROW FOR PROPER TECHNIQUE */
+}
+
+.numbers {
+    grid-area: c;
+    /* SEE ROW FOR PROPER TECHNIQUE */
+}
+
+.button {
+    width: 80px;
+    height: 60px;
+    border-radius: 3px;
+    background-color: lightsteelblue;
+    display: inline;
+    font-size: 30px;
+    font-weight: bold;
 }

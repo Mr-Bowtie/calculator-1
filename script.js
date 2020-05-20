@@ -30,3 +30,6 @@ function operate(operator, a, b) {
             return 'ERROR';
     }
 }
+
+const buttons = document.querySelector('.buttons');
+const display = document.querySelector('.display');
