@@ -17,7 +17,9 @@ computes.forEach(compute => {
 // HELPER FUNCTIONS -----------------------------------------------------------------------------------------
 
 function computeValue() { // NEXT TASK
+    let total = 0;
     let arr = displayValue.split('');
+    let i = 0;
 }
 
 function clearValue() {
