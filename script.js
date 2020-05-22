@@ -16,33 +16,25 @@ computes.forEach(compute => {
 
 // HELPER FUNCTIONS -----------------------------------------------------------------------------------------
 
-function computeValue() {
+function computeValue() { // NEXT TASK
     let arr = displayValue.split('');
 }
 
 function clearValue() {
     displayValue = "";
-    updateDisplay();
     finalOperand = true;
+    updateDisplay();
 }
 
 function storeNum() {
     if(isNaN(this.textContent) && finalOperand === true) return;
     displayValue += this.textContent;
-    updateDisplay();
     setFinalOperand(this.textContent);
+    updateDisplay();
 }
 
 function setFinalOperand(current) {
     isNaN(current) ? finalOperand = true : finalOperand = false;
-}
-
-function updateFinal(current) {
-    if(isNaN(current)) {
-        finalOperand = true;
-    } else {
-        finalOperand = false;
-    }
 }
 
 function updateDisplay() {
