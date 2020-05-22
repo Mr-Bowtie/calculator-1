@@ -1,19 +1,33 @@
-function add(a, b) {
-    return a + b;
+
+const computes = document.querySelectorAll('.compute');
+const display = document.querySelector('.display');
+const clear = document.querySelector('.clear');
+
+let displayValue = "";
+// let total = 0;
+
+clear.addEventListener('click', clearValue);
+computes.forEach(compute => {
+    compute.addEventListener('click', storeNum);
+});
+
+// HELPER FUNCTIONS -----------------------------------------------------------------------------------------
+
+function clearValue() {
+    displayValue = "";
+    updateDisplay();
 }
 
-function subtract(a, b) {
-    return a - b;
+function storeNum() {
+    displayValue += `${this.textContent}`;
+    updateDisplay();
 }
 
-function multiply(a, b) {
-    return a * b;
+function updateDisplay() {
+    display.textContent = displayValue;
 }
 
-function divide(a, b) {
-    if (b == 0 ) return 'UNDEFINED';
-    return a / b;
-}
+// MATHS ------------------------------------------------------------------------------------------------------
 
 function operate(operator, a, b) {
     switch(operator) {
@@ -31,5 +45,19 @@ function operate(operator, a, b) {
     }
 }
 
-const buttons = document.querySelector('.buttons');
-const display = document.querySelector('.display');
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    if (b == 0 ) return 'UNDEFINED';
+    return a / b;
+}

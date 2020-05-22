@@ -20,6 +20,10 @@ body {
     height: 80px;
     margin: auto;
     background-color: lightgray;
+    text-align: right;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 2;
 }
 
 .buttons {
@@ -44,4 +48,9 @@ body {
     font-weight: bold;
     text-align: center;
     line-height: 1.8;
+}
+
+.zero {
+    grid-column: 1 / 3;
+    width: 210px;
 }
