@@ -2,25 +2,47 @@
 const computes = document.querySelectorAll('.compute');
 const display = document.querySelector('.display');
 const clear = document.querySelector('.clear');
+const equal = document.querySelector('.equal');
 
 let displayValue = "";
+let finalOperand = true;
 // let total = 0;
 
 clear.addEventListener('click', clearValue);
+equal.addEventListener('click', computeValue);
 computes.forEach(compute => {
     compute.addEventListener('click', storeNum);
 });
 
 // HELPER FUNCTIONS -----------------------------------------------------------------------------------------
 
+function computeValue() {
+    let arr = displayValue.split('');
+}
+
 function clearValue() {
     displayValue = "";
     updateDisplay();
+    finalOperand = true;
 }
 
 function storeNum() {
-    displayValue += `${this.textContent}`;
+    if(isNaN(this.textContent) && finalOperand === true) return;
+    displayValue += this.textContent;
     updateDisplay();
+    setFinalOperand(this.textContent);
+}
+
+function setFinalOperand(current) {
+    isNaN(current) ? finalOperand = true : finalOperand = false;
+}
+
+function updateFinal(current) {
+    if(isNaN(current)) {
+        finalOperand = true;
+    } else {
+        finalOperand = false;
+    }
 }
 
 function updateDisplay() {
