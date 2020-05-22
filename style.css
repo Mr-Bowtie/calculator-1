@@ -31,33 +31,8 @@ body {
     grid-template-rows: repeat(5, 1fr);
     grid-template-columns: repeat(4, 1fr);
     gap: 10px; 
-    /* justify-items: center; */
-    /* align-items: center; */
-    grid-template-areas: 
-        "a a a a"
-        "c c c b"
-        "c c c b"
-        "c c c b"
-        "c c c b";
-}
-
-.row {
-    grid-area: a;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     align-items: center;
-    text-align: center;
-}
-
-.column {
-    grid-area: b;
-    /* SEE ROW FOR PROPER TECHNIQUE */
-}
-
-.numbers {
-    grid-area: c;
-    /* SEE ROW FOR PROPER TECHNIQUE */
 }
 
 .button {
@@ -65,7 +40,8 @@ body {
     height: 60px;
     border-radius: 3px;
     background-color: lightsteelblue;
-    display: inline;
     font-size: 30px;
     font-weight: bold;
+    text-align: center;
+    line-height: 1.8;
 }
