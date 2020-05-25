@@ -17,9 +17,22 @@ computes.forEach(compute => {
 // HELPER FUNCTIONS -----------------------------------------------------------------------------------------
 
 function computeValue() { // NEXT TASK
-    let total = 0;
-    let arr = displayValue.split('');
-    let i = 0;
+    let arr = displayValue.split(' ');
+    let total = Number(arr.shift());
+    while (arr.length) {
+        let operator = arr.shift();
+        let b = Number(arr.shift());
+        total = operate(operator, total, b);
+    }
+    displayValue = total;
+    updateDisplay();
+    console.log(`total: ${total}`);
+    console.log(`arr: ${arr}`);
+
+    // array of operators and numbers
+    // separate arrays for numbers and operators?
+    // start with simple array left to right following operator? reduce
+
 }
 
 function clearValue() {
@@ -29,8 +42,12 @@ function clearValue() {
 }
 
 function storeNum() {
-    if(isNaN(this.textContent) && finalOperand === true) return;
-    displayValue += this.textContent;
+    if(isNaN(this.textContent)) {
+        if (finalOperand === true) return;
+        displayValue += ` ${this.textContent} `;
+    } else {
+        displayValue += this.textContent;
+    }
     setFinalOperand(this.textContent);
     updateDisplay();
 }
