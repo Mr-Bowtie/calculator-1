@@ -28,11 +28,6 @@ function computeValue() { // NEXT TASK
     updateDisplay();
     console.log(`total: ${total}`);
     console.log(`arr: ${arr}`);
-
-    // array of operators and numbers
-    // separate arrays for numbers and operators?
-    // start with simple array left to right following operator? reduce
-
 }
 
 function clearValue() {
