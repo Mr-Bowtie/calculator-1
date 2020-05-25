@@ -6,10 +6,9 @@ const equal = document.querySelector('.equal');
 
 let displayValue = "";
 let finalOperand = true;
-// let total = 0;
 
 clear.addEventListener('click', clearValue);
-equal.addEventListener('click', computeValue);
+equal.addEventListener('click', computeValue2);
 computes.forEach(compute => {
     compute.addEventListener('click', storeNum);
 });
@@ -19,6 +18,32 @@ computes.forEach(compute => {
 function computeValue() { // NEXT TASK
     let arr = displayValue.split(' ');
     let total = Number(arr.shift());
+    while (arr.length) {
+        let operator = arr.shift();
+        let b = Number(arr.shift());
+        total = operate(operator, total, b);
+    }
+    displayValue = total;
+    updateDisplay();
+    console.log(`total: ${total}`);
+    console.log(`arr: ${arr}`);
+}
+
+function computeValue2() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
+    let arr = displayValue.split(' ');
+    let total = 0
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === '*' || arr[i] === '/') {
+            let operator = arr[i];
+            let a = Number(arr[i-1]);
+            let b = Number(arr[i+1]);
+            total = operate(operator, a, b);
+            arr.splice(i-1, 3, total);
+            i--;
+        }
+    }
+    console.log(arr);
+    total = Number(arr.shift());
     while (arr.length) {
         let operator = arr.shift();
         let b = Number(arr.shift());
