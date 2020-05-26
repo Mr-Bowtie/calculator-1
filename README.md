@@ -8,6 +8,11 @@
 * Add keyboard support
 * Pretty it up
 
+##  Refactoring opportunities/needs
+* Break compute into smaller reusable functions
+* May need to change input method from collecting into a single string to pushing to array to allow improved implementation of functions
+* 
+
 ## Improvements made
 * Added hover effect to buttons
 * Removed issue with trailing operator
