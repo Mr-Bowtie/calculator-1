@@ -37,10 +37,10 @@ function computeValue() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
     }
     displayValue = total;
     updateDisplay();
-    console.log(`total: ${total}`);
-    console.log(`arr: ${arr}`);
-    console.log(`trailing operand: ${trailingOperand}`);
-    console.log('*********');
+    // console.log(`total: ${total}`);
+    // console.log(`arr: ${arr}`);
+    // console.log(`trailing operand: ${trailingOperand}`);
+    // console.log('*********');
     trailingOperand = false;
 }
 
@@ -51,7 +51,7 @@ function clearValue() {
 }
 
 function storeNum() {
-    if(isNaN(this.textContent)) {
+    if(isNaN(this.textContent) && this.textContent !== '.') {
         if (trailingOperand === true) return;
         displayValue += ` ${this.textContent} `;
     } else {
@@ -62,7 +62,7 @@ function storeNum() {
 }
 
 function setTrailingOperand(current) {
-    isNaN(current) ? trailingOperand = true : trailingOperand = false;
+    isNaN(current) && current !== '.' ? trailingOperand = true : trailingOperand = false;
 }
 
 function updateDisplay() {
