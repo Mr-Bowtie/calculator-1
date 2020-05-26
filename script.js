@@ -5,7 +5,7 @@ const clear = document.querySelector('.clear');
 const equal = document.querySelector('.equal');
 
 let displayValue = "";
-let finalOperand = true;
+let trailingOperand = true;
 
 clear.addEventListener('click', clearValue);
 equal.addEventListener('click', computeValue);
@@ -17,7 +17,8 @@ computes.forEach(compute => {
 
 function computeValue() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
     let arr = displayValue.split(' ');
-    let total = 0
+    let total = 0;
+    if (trailingOperand === true) arr.splice(arr.length - 2, 2);
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] === '*' || arr[i] === '/') {
             let operator = arr[i];
@@ -28,7 +29,6 @@ function computeValue() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
             i--;
         }
     }
-    console.log(arr);
     total = Number(arr.shift());
     while (arr.length) {
         let operator = arr.shift();
@@ -39,27 +39,30 @@ function computeValue() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
     updateDisplay();
     console.log(`total: ${total}`);
     console.log(`arr: ${arr}`);
+    console.log(`trailing operand: ${trailingOperand}`);
+    console.log('*********');
+    trailingOperand = false;
 }
 
 function clearValue() {
     displayValue = "";
-    finalOperand = true;
+    trailingOperand = true;
     updateDisplay();
 }
 
 function storeNum() {
     if(isNaN(this.textContent)) {
-        if (finalOperand === true) return;
+        if (trailingOperand === true) return;
         displayValue += ` ${this.textContent} `;
     } else {
         displayValue += this.textContent;
     }
-    setFinalOperand(this.textContent);
+    setTrailingOperand(this.textContent);
     updateDisplay();
 }
 
-function setFinalOperand(current) {
-    isNaN(current) ? finalOperand = true : finalOperand = false;
+function setTrailingOperand(current) {
+    isNaN(current) ? trailingOperand = true : trailingOperand = false;
 }
 
 function updateDisplay() {
