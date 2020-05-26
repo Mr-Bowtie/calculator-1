@@ -4,8 +4,6 @@
 
 ## Improvements
 * Prevent display overflow
-* Implement decimals
-    * Allow only one in each number
 * Add backspace button to correct errors
 * Add keyboard support
 * Pretty it up
@@ -13,3 +11,4 @@
 ## Improvements made
 * Added hover effect to buttons
 * Removed issue with trailing operator
+* Added decimal ability with only one allowed in each number

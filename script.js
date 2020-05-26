@@ -6,6 +6,7 @@ const equal = document.querySelector('.equal');
 
 let displayValue = "";
 let trailingOperand = true;
+let hasDecimal = false;
 
 clear.addEventListener('click', clearValue);
 equal.addEventListener('click', computeValue);
@@ -16,7 +17,8 @@ computes.forEach(compute => {
 // HELPER FUNCTIONS -----------------------------------------------------------------------------------------
 
 function computeValue() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
-    let arr = displayValue.split(' ');
+    if (displayValue === '') return;
+    let arr = displayValue.split(' '); // PRODUCES SILENT TYPEERROR IF ONLY ONE NUMBER THERE
     let total = 0;
     if (trailingOperand === true) arr.splice(arr.length - 2, 2);
     for (let i = 0; i < arr.length; i++) {
@@ -37,25 +39,27 @@ function computeValue() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
     }
     displayValue = total;
     updateDisplay();
-    // console.log(`total: ${total}`);
-    // console.log(`arr: ${arr}`);
-    // console.log(`trailing operand: ${trailingOperand}`);
-    // console.log('*********');
     trailingOperand = false;
+    hasDecimal = checkIfDecimal(total);
 }
 
 function clearValue() {
     displayValue = "";
     trailingOperand = true;
+    hasDecimal = false;
     updateDisplay();
 }
 
 function storeNum() {
-    if(isNaN(this.textContent) && this.textContent !== '.') {
+    if (isNaN(this.textContent) && this.textContent !== '.') {
         if (trailingOperand === true) return;
         displayValue += ` ${this.textContent} `;
+        hasDecimal = false;
+    } else if (this.textContent === '.' && hasDecimal === true) {
+        return;
     } else {
         displayValue += this.textContent;
+        if (this.textContent === '.') hasDecimal = true;
     }
     setTrailingOperand(this.textContent);
     updateDisplay();
@@ -67,6 +71,11 @@ function setTrailingOperand(current) {
 
 function updateDisplay() {
     display.textContent = displayValue;
+}
+
+function checkIfDecimal(total) {
+    total = total.toString();
+    return total.split('').filter(char => char === '.').length ? true : false;
 }
 
 // MATHS ------------------------------------------------------------------------------------------------------
