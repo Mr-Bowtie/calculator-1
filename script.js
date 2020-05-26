@@ -8,28 +8,14 @@ let displayValue = "";
 let finalOperand = true;
 
 clear.addEventListener('click', clearValue);
-equal.addEventListener('click', computeValue2);
+equal.addEventListener('click', computeValue);
 computes.forEach(compute => {
     compute.addEventListener('click', storeNum);
 });
 
 // HELPER FUNCTIONS -----------------------------------------------------------------------------------------
 
-function computeValue() { // NEXT TASK
-    let arr = displayValue.split(' ');
-    let total = Number(arr.shift());
-    while (arr.length) {
-        let operator = arr.shift();
-        let b = Number(arr.shift());
-        total = operate(operator, total, b);
-    }
-    displayValue = total;
-    updateDisplay();
-    console.log(`total: ${total}`);
-    console.log(`arr: ${arr}`);
-}
-
-function computeValue2() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
+function computeValue() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
     let arr = displayValue.split(' ');
     let total = 0
     for (let i = 0; i < arr.length; i++) {

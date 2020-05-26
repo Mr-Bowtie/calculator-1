@@ -50,6 +50,10 @@ body {
     line-height: 1.8;
 }
 
+.button:hover {
+    background-color: lightseagreen;
+}
+
 .zero {
     grid-column: 1 / 3;
     width: 210px;
