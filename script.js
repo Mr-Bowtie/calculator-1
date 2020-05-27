@@ -3,12 +3,14 @@ const computes = document.querySelectorAll('.compute');
 const display = document.querySelector('.display');
 const clear = document.querySelector('.clear');
 const equal = document.querySelector('.equal');
+const backspace = document.querySelector('.backspace');
 
 let displayValue = "";
 let trailingOperand = true;
 let hasDecimal = false;
 
 clear.addEventListener('click', clearValue);
+backspace.addEventListener('click', deleteLast);
 equal.addEventListener('click', computeValue);
 computes.forEach(compute => {
     compute.addEventListener('click', storeNum);
@@ -76,6 +78,18 @@ function updateDisplay() {
 function checkIfDecimal(total) {
     total = total.toString();
     return total.split('').filter(char => char === '.').length ? true : false;
+}
+
+function deleteLast() {
+    let arr = displayValue.split('');
+    if (arr[arr.length - 1] === ' ') {
+        arr.splice(arr.length - 3, 3);
+    } else {
+        arr.pop();
+    }
+    arr = arr.join('');
+    displayValue = arr;
+    updateDisplay();
 }
 
 // MATHS ------------------------------------------------------------------------------------------------------
