@@ -5,6 +5,14 @@ const clear = document.querySelector('.clear');
 const equal = document.querySelector('.equal');
 const backspace = document.querySelector('.backspace');
 
+// PROBABLY NEED TO HAVE INPUT INTO STORENUM FUNCTION SO IT DOES NOT RELY ON THIS. WILL NEED TO REFACTOR TO MAKE MORE FLEXIBLE AND ABLE TO BE USED FOR BOTH CLICK AND KEYDOWN
+
+// const buttons = Array.from(document.querySelectorAll('.button'));
+// let buttonCodes = buttons.map(button => {
+//     return button.textContent;
+// });
+// console.log(buttonCodes);
+
 let displayValue = "";
 let trailingOperand = true;
 let hasDecimal = false;
@@ -15,6 +23,9 @@ equal.addEventListener('click', computeValue);
 computes.forEach(compute => {
     compute.addEventListener('click', storeNum);
 });
+// document.addEventListener('keydown', (e) => {
+//     if (buttonCodes.includes(e.key)) storeNum();
+// });
 
 // HELPER FUNCTIONS -----------------------------------------------------------------------------------------
 
@@ -53,6 +64,7 @@ function clearValue() {
 }
 
 function storeNum() {
+    if (displayValue.length >= 23) return;
     if (isNaN(this.textContent) && this.textContent !== '.') {
         if (trailingOperand === true) return;
         displayValue += ` ${this.textContent} `;
@@ -91,7 +103,6 @@ function deleteLast() {
     displayValue = arr;
     updateDisplay();
 }
-
 // MATHS ------------------------------------------------------------------------------------------------------
 
 function operate(operator, a, b) {
