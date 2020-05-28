@@ -5,13 +5,14 @@ const clear = document.querySelector('.clear');
 const equal = document.querySelector('.equal');
 const backspace = document.querySelector('.backspace');
 
-// PROBABLY NEED TO HAVE INPUT INTO STORENUM FUNCTION SO IT DOES NOT RELY ON THIS. WILL NEED TO REFACTOR TO MAKE MORE FLEXIBLE AND ABLE TO BE USED FOR BOTH CLICK AND KEYDOWN
+// MOST KEYPRESSES WORKING. ABLE TO FILTER INPUT USING IF STATEMENT.
+// NEED TO FIX C, X, AND =
 
-// const buttons = Array.from(document.querySelectorAll('.button'));
-// let buttonCodes = buttons.map(button => {
-//     return button.textContent;
-// });
-// console.log(buttonCodes);
+const buttons = Array.from(document.querySelectorAll('.button'));
+let buttonCodes = buttons.map(button => {
+    return button.textContent;
+});
+console.log(buttonCodes);
 
 let displayValue = "";
 let trailingOperand = true;
@@ -23,9 +24,9 @@ equal.addEventListener('click', computeValue);
 computes.forEach(compute => {
     compute.addEventListener('click', storeNum);
 });
-// document.addEventListener('keydown', (e) => {
-//     if (buttonCodes.includes(e.key)) storeNum();
-// });
+document.addEventListener('keydown', (e) => {
+    if (buttonCodes.includes(e.key)) storeNum(e);
+});
 
 // HELPER FUNCTIONS -----------------------------------------------------------------------------------------
 
@@ -63,19 +64,26 @@ function clearValue() {
     updateDisplay();
 }
 
-function storeNum() {
+function storeNum(e) {
+    console.log(e.type);
+    let num = '';
+    if (e.type === 'click') {
+        num = e.target.textContent;
+    } else {
+        num = e.key;
+    }
     if (displayValue.length >= 23) return;
-    if (isNaN(this.textContent) && this.textContent !== '.') {
+    if (isNaN(num) && num !== '.') {
         if (trailingOperand === true) return;
-        displayValue += ` ${this.textContent} `;
+        displayValue += ` ${num} `;
         hasDecimal = false;
-    } else if (this.textContent === '.' && hasDecimal === true) {
+    } else if (num === '.' && hasDecimal === true) {
         return;
     } else {
-        displayValue += this.textContent;
-        if (this.textContent === '.') hasDecimal = true;
+        displayValue += num;
+        if (num === '.') hasDecimal = true;
     }
-    setTrailingOperand(this.textContent);
+    setTrailingOperand(num);
     updateDisplay();
 }
 
