@@ -1,6 +1,6 @@
 
 const computes = document.querySelectorAll('.compute');
-const display = document.querySelector('.display');
+const displayScreen = document.querySelector('.display');
 const clear = document.querySelector('.clear');
 const equal = document.querySelector('.equal');
 const backspace = document.querySelector('.backspace');
@@ -9,14 +9,15 @@ const backspace = document.querySelector('.backspace');
 // NEED TO FIX C, X, AND =
 
 const buttons = Array.from(document.querySelectorAll('.button'));
-let buttonCodes = buttons.map(button => {
+const buttonCodes = buttons.map(button => {
     return button.textContent;
 });
-console.log(buttonCodes);
 
-let displayValue = "";
-let trailingOperand = true;
-let hasDecimal = false;
+const display = {
+    value: "",
+    trailingOperand: true,
+    hasDecimal: false
+}
 
 clear.addEventListener('click', clearValue);
 backspace.addEventListener('click', deleteLast);
@@ -40,10 +41,10 @@ document.addEventListener('keydown', (e) => {
 // HELPER FUNCTIONS -----------------------------------------------------------------------------------------
 
 function computeValue() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
-    if (displayValue === '') return;
-    let arr = displayValue.split(' '); // PRODUCES SILENT TYPEERROR IF ONLY ONE NUMBER THERE
+    if (display.value === '') return;
+    let arr = display.value.split(' '); // PRODUCES SILENT TYPEERROR IF ONLY ONE NUMBER THERE
     let total = 0;
-    if (trailingOperand) arr.splice(arr.length - 2, 2);
+    if (display.trailingOperand) arr.splice(arr.length - 2, 2);
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] === '*' || arr[i] === '/') {
             let operator = arr[i];
@@ -60,16 +61,16 @@ function computeValue() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
         let b = Number(arr.shift());
         total = operate(operator, total, b);
     }
-    displayValue = total;
+    display.value = total;
     updateDisplay();
-    trailingOperand = false;
-    hasDecimal = checkIfDecimal(total);
+    display.trailingOperand = false;
+    display.hasDecimal = checkIfDecimal(total);
 }
 
 function clearValue() {
-    displayValue = "";
-    trailingOperand = true;
-    hasDecimal = false;
+    display.value = "";
+    display.trailingOperand = true;
+    display.hasDecimal = false;
     updateDisplay();
 }
 
@@ -80,27 +81,27 @@ function storeNum(e) {
     } else {
         num = e.key;
     }
-    if (displayValue.length >= 23) return;
+    if (display.value.length >= 23) return;
     if (isNaN(num) && num !== '.') {
-        if (trailingOperand === true) return;
-        displayValue += ` ${num} `;
-        hasDecimal = false;
-    } else if (num === '.' && hasDecimal === true) {
+        if (display.trailingOperand) return;
+        display.value += ` ${num} `;
+        display.hasDecimal = false;
+    } else if (num === '.' && display.hasDecimal) {
         return;
     } else {
-        displayValue += num;
-        if (num === '.') hasDecimal = true;
+        display.value += num;
+        if (num === '.') display.hasDecimal = true;
     }
     setTrailingOperand(num);
     updateDisplay();
 }
 
 function setTrailingOperand(current) {
-    isNaN(current) && current !== '.' ? trailingOperand = true : trailingOperand = false;
+    isNaN(current) && current !== '.' ? display.trailingOperand = true : display.trailingOperand = false;
 }
 
 function updateDisplay() {
-    display.textContent = displayValue;
+    displayScreen.textContent = display.value;
 }
 
 function checkIfDecimal(total) {
@@ -109,14 +110,14 @@ function checkIfDecimal(total) {
 }
 
 function deleteLast() {
-    let arr = displayValue.split('');
+    let arr = display.value.split('');
     if (arr[arr.length - 1] === ' ') {
         arr.splice(arr.length - 3, 3);
     } else {
         arr.pop();
     }
     arr = arr.join('');
-    displayValue = arr;
+    display.value = arr;
     updateDisplay();
 }
 // MATHS ------------------------------------------------------------------------------------------------------
