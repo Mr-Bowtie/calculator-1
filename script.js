@@ -26,6 +26,7 @@ computes.forEach(compute => {
     compute.addEventListener('click', storeNum);
 });
 document.addEventListener('keydown', (e) => {
+    if (e.key === 'x') return;
     if (e.key === 'Backspace') deleteLast();
     if (buttonCodes.includes(e.key)) {
         if (e.key === 'c') {
