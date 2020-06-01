@@ -1,6 +1,10 @@
 # Calculator Project
-* Basic calculator with click support
-* Shows all numbers and operators on display.
+* Basic calculator with click and keyboard support 
+    * The arrow and backspace keys handle deletion of last character
+    * The 'x' button is currently an inactive placeholder
+* Shows all numbers and operators on display with max character length of 23
+* Handles decimals appropriately
+* Will throw silent error when using '=' on single number as split is not a function there. Does not affect use.
 
 ##  Refactoring opportunities/needs
 * Break compute into smaller reusable functions
@@ -8,6 +12,7 @@
 
 ## Improvements to be made
 * Pretty it up
+* Limit decimal length
 
 ## Improvements made
 * Added hover effect to buttons
