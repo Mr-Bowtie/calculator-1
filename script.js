@@ -25,7 +25,16 @@ computes.forEach(compute => {
     compute.addEventListener('click', storeNum);
 });
 document.addEventListener('keydown', (e) => {
-    if (buttonCodes.includes(e.key)) storeNum(e);
+    if (e.key === 'Backspace') deleteLast();
+    if (buttonCodes.includes(e.key)) {
+        if (e.key === 'c') {
+            clearValue();
+        } else if (e.key === '=') {
+            computeValue();
+        } else {
+            storeNum(e);
+        }
+    }
 });
 
 // HELPER FUNCTIONS -----------------------------------------------------------------------------------------
@@ -34,7 +43,7 @@ function computeValue() { //UGLY BUT WORKING WITH ORDER OF OPERATIONS
     if (displayValue === '') return;
     let arr = displayValue.split(' '); // PRODUCES SILENT TYPEERROR IF ONLY ONE NUMBER THERE
     let total = 0;
-    if (trailingOperand === true) arr.splice(arr.length - 2, 2);
+    if (trailingOperand) arr.splice(arr.length - 2, 2);
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] === '*' || arr[i] === '/') {
             let operator = arr[i];
@@ -65,7 +74,6 @@ function clearValue() {
 }
 
 function storeNum(e) {
-    console.log(e.type);
     let num = '';
     if (e.type === 'click') {
         num = e.target.textContent;
